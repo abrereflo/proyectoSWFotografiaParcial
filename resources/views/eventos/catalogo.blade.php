@@ -9,14 +9,6 @@
       </div>
     </div>"
   ;}  */
-  $db_hosting='127.0.0.1';
-  $db_name = 'postgres';
-  $db_pass = 'moira123';
-  $db_database = 'db_fotografia';
 
-  $con = postgres_connect($db_hosting, $db_name, $db_pass, $db_database);
-  if(postgres_connect_errno()){
- echo 'No se pudo conectar a la base de datos: '.postgres_connect_error();
-  }
   
 ?>

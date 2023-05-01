@@ -33,22 +33,8 @@
                                             </span>
                                         @endif
                                     </div> 
-                            <div class="row">
-                                <div class="col-md-6">
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="cantidad_fotos">Cantidad de Fotos<span class="required">*</span></label>
-                                        <input type="number" class="form-control  @error('cantidad_fotos') is-invalid @enderror" name="cantidad_fotos" placeholder="Cantidad de fotos...">
-                                        @error('cantidad_fotos')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <form action="{{ route('albums.store') }}" method="POST" class="dropzone" id="my-awesome-dropzone"> 
+                           <div class="row"> 
+                               <form action="{{ route('albums.store') }}" method="POST" class="dropzone" id="my-awesome-dropzone"> 
                                     <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleFormControlInput1">Imagen<span class="required">*</span></label>

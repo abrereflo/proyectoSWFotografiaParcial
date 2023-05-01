@@ -7,7 +7,6 @@ use App\Models\Evento;
 use App\Models\Foto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;  ///paquete que sirve para reducir el tamaño de la foto
 use Illuminate\Support\Str;
@@ -23,7 +22,8 @@ class AlbumController extends Controller
     public function index()
     {
         $files = Album::where('fotografo_id',auth()->user()->id)->paginate(10);
-        return view('albums.index', compact('files'));
+        $imagen = Album::where('evento_id');
+        return view('albums.index', compact('files','imagen'));
     }
 
     /**

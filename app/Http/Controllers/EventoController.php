@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Evento;
 use App\Models\Album;
+use App\Models\Foto;
 use App\Models\Fotografo;
 use Illuminate\Support\Facades\Auth;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -31,7 +32,6 @@ class EventoController extends Controller
      */
     public function create()
     {
-        //
        return view('eventos.create');
     }
 
@@ -46,7 +46,7 @@ class EventoController extends Controller
         request()->validate([
             'nombre' => 'required',
             'descripcion' => 'required',
-            'ubicacion' => 'required',
+            'ubicacion' => 'required',  
             'fecha' => 'required',
             'hora' => 'required',
         ]);
@@ -59,6 +59,7 @@ class EventoController extends Controller
         $evento->precio = $request->precio;
         $evento->estado = $request->estado;
         $evento->user_id = Auth::user()->id;
+        $evento->fotos_id = $request->fotos_id;    
         $evento->save();
 
         $imagen = Str::slug($evento->nombre).'.png';

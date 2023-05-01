@@ -151,7 +151,7 @@
 </script>
 <script>
     let
-        $('.formulario-eliminar2').submit(function(e) {
+        ('.formulario-eliminar2').submit(function(e) {
             console.log()
             e.preventDefault();
             Swal.fire({
