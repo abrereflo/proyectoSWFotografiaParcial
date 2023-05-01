@@ -46,7 +46,7 @@ class EventoController extends Controller
         request()->validate([
             'nombre' => 'required',
             'descripcion' => 'required',
-            'ubicacion' => 'required',  
+            'ubicacion' => 'required',
             'fecha' => 'required',
             'hora' => 'required',
         ]);
@@ -59,7 +59,7 @@ class EventoController extends Controller
         $evento->precio = $request->precio;
         $evento->estado = $request->estado;
         $evento->user_id = Auth::user()->id;
-        $evento->fotos_id = $request->fotos_id;    
+
         $evento->save();
 
         $imagen = Str::slug($evento->nombre).'.png';
@@ -75,7 +75,7 @@ class EventoController extends Controller
             'evento_id' => $evento->id,
         ]);*/
         return redirect()->route('eventos.index');
-        
+
     }
 
     /**
@@ -131,7 +131,7 @@ class EventoController extends Controller
     }
 
     public function generarCatalogo(){
-        
+
         $fotografos = Fotografo::all();
         return view('eventos.generarCatalogo');
     }

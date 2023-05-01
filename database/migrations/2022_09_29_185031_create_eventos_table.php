@@ -25,8 +25,7 @@ class CreateEventosTable extends Migration
             $table->string('code_qr')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
-            $table->unsignedBigInteger('fotos_id');
-            $table->foreign('fotos_id')->on('fotos')->references('id')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
