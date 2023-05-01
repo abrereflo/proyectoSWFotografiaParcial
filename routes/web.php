@@ -42,7 +42,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/home2', [App\Http\Controllers\HomeController2::class, 'index'])->name('home2');
 
 
-Auth::routes();
+/*Auth::routes();*/
 
 Route::resource('fotografos', FotografoController::class);
 Route::resource('clientes', ClienteController::class);

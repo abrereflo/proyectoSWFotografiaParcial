@@ -22,6 +22,7 @@
 <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('web/css/components.css')}}">
+    <link rel="stylesheet" type= "text/css" href="//maxcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> <!--- ESTO AUMENTE PARA UTILIZAR PLUGIN DROPZONE -->
     @yield('css')
     @yield('page_css')
@@ -72,9 +73,6 @@
 @yield('js')
 @yield('scripts')
 <script>
-    let loggedInUser =@json(\Illuminate\Support\Facades\Auth::user());
-    let loginUrl = '{{ route('login') }}';
-    const userUrl = '{{url('users')}}';
     // Loading button plugin (removed from BS4)
     (function ($) {
         $.fn.button = function (action) {
