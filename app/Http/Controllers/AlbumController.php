@@ -1,16 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Album;
-use App\Models\Fotografo; //// AQUI AUMENTE ESTO
-use App\Models\Evento;
 use App\Models\Foto;
+use App\Models\User;
+use App\Models\Album;
+use App\Models\Evento;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;  ///paquete que sirve para reducir el tamaño de la foto
-use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Models\Fotografo; //// AQUI AUMENTE ESTO
+use Intervention\Image\Facades\Image;  ///paquete que sirve para reducir el tamaño de la foto
 
 class AlbumController extends Controller
 {
@@ -21,18 +23,15 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $fotografos = Album::where('fotografo_id',auth()->user()->id)->paginate(10);
-        $eventos = Album::where('evento_id')->get();
-        return view('albums.index', [
-            'fotografos' => $fotografos,
-            'eventos'    => $eventos
-        ]);
+        //$fotografos = Album::where('fotografo_id',auth()->user()->id)->paginate(10);
+        $evento = Evento::all();
+        return view('albums.index',compact('evento'));
 
         /* $datos = Album::query();
         ->where('fotografo_id',auth()->user()->id,'evento_id')
         ->get()
         ->paginate(10);
-        
+
          return view('albums.index',compact('datos'));
         */
     }
@@ -53,14 +52,14 @@ class AlbumController extends Controller
         $album = Album::find($album_id);
         $fotografo = Auth::user()->id;
         $fotos = Foto::where([
-            'fotografo_id' => $fotografo,   
+            'fotografo_id' => $fotografo,
             'album_id' => $album->id
         ])->get();
 
-        return view('albums.index',compact('fotos','album')); 
+        return view('albums.index',compact('fotos','album'));
     }*/
 
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -72,7 +71,7 @@ class AlbumController extends Controller
         //dd($request);
       //  $album = Album::find($album_id);
         $request->validate([
-            'cantidad_fotos' => 'required',
+           // 'cantidad_fotos' => 'required',
             'file' => 'required|image'
         ]);
         $album  = new Album();
@@ -81,10 +80,10 @@ class AlbumController extends Controller
             $file= $request->file('file');
             $filename = time() .'-'. $file->getClientOriginalName();
             $destinationPath = storage_path() . '\app\public\imagenes/' . $filename;
-            //$uploadsucess = $request->file('file')->move($destinationPath, $filename); //lo descomente 
+            //$uploadsucess = $request->file('file')->move($destinationPath, $filename); //lo descomente
 
-           // $album = Str::random(10) . $request->file('file')->getClientOriginalName();  //lo descomente 
-          //  $ruta = storage_path() . 'app\public\files' . $album; //lo descomente 
+           // $album = Str::random(10) . $request->file('file')->getClientOriginalName();  //lo descomente
+          //  $ruta = storage_path() . 'app\public\files' . $album; //lo descomente
             Image::make($request->file('file'))
                 ->resize(1200, null, function ($constraint){
                 $constraint->aspectRatio();
@@ -95,7 +94,7 @@ class AlbumController extends Controller
             //$album->file = $destinationPath.$filename;
             $album->file = 'storage/imagenes/' . $filename;
 
-        }; 
+        };
         $album->estado = $request->estado;
         $album->fotografo_id = Auth::user()->id;
         $album->evento_id = 1;
@@ -157,5 +156,27 @@ class AlbumController extends Controller
     {
         Album::find($id)->delete();
         return redirect()->route('albums.index');
+    }
+
+    //TODO: Funcion para ver las fotos de un evento en especifico del fotografo
+
+    public function verEventoFoto(Request $request){
+       $org_id= $request->org_id;
+       $fotografo_id= $request->fotografo_id;
+       $evento_id= $request->evento_id;
+
+       $nombreDelOrg=User::select("name")->where('id',$org_id)->get();
+      /*  $obtenerFotoDelEvento=Foto::select("imagen")->where('evento_id',$request->evento_id)
+                                ->where('fotografo_id',$request->fotografo_id)
+                                ->get(); */
+     $obtenerFotoDelEvento=DB::table("fotos")
+                            ->select("eventos.nombre",'eventos.ubicacion',"users.name","fotos.imagen")
+                            ->join('eventos','eventos.id','=','fotos.evento_id')
+                            ->join('users','users.id','=','eventos.user_id')
+                            ->where("fotos.evento_id",$request->evento_id)
+                            ->where("fotos.fotografo_id",$request->fotografo_id)
+                            ->get();
+
+        return view('albums.verEventos',compact('obtenerFotoDelEvento','nombreDelOrg'));
     }
 }
