@@ -21,9 +21,20 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $files = Album::where('fotografo_id',auth()->user()->id)->paginate(10);
-        $imagen = Album::where('evento_id');
-        return view('albums.index', compact('files','imagen'));
+        $fotografos = Album::where('fotografo_id',auth()->user()->id)->paginate(10);
+        $eventos = Album::where('evento_id')->get();
+        return view('albums.index', [
+            'fotografos' => $fotografos,
+            'eventos'    => $eventos
+        ]);
+
+        /* $datos = Album::query();
+        ->where('fotografo_id',auth()->user()->id,'evento_id')
+        ->get()
+        ->paginate(10);
+        
+         return view('albums.index',compact('datos'));
+        */
     }
 
     /**

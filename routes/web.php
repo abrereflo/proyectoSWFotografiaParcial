@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FotografoController;
 use App\Http\Controllers\EventoController;
@@ -19,13 +19,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-/* Route::get('tareas', function(){
-    return view('tareas');
-});
- */
 
 Route::middleware([
     'auth:sanctum',
@@ -48,7 +44,7 @@ Route::resource('fotografos', FotografoController::class);
 Route::resource('clientes', ClienteController::class);
 Route::resource('eventos',EventoController::class);
 Route::resource('albums',AlbumController::class);
-Route::resource('detalleOrden',DetalleOrdenController::class);
+//Route::resource('detalleOrden',DetalleOrdenController::class);
 
 Route::get('eventos/generarCatalogo',[EventoController::class, 'generarCatalogo'])->name('eventos.generarCatalogo');
 

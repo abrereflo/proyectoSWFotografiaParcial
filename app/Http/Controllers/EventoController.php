@@ -59,14 +59,17 @@ class EventoController extends Controller
         $evento->precio = $request->precio;
         $evento->estado = $request->estado;
         $evento->user_id = Auth::user()->id;
-
         $evento->save();
 
         $imagen = Str::slug($evento->nombre).'.png';
         $filename = storage_path(). '\app\public\codesqr/' .$imagen;
         //$name = substr($filename, 43);
         $name = substr($filename, 63);
-        QrCode::size(400)->generate($evento, $filename);
+        QrCode::generate($evento, $filename);
+        QrCode::size(500)
+        ->backgroundColor(255,255,204)
+        ->generate($evento, $filename);
+        
         $url = Storage::url($name);
         $evento->code_qr = $url;
         $evento->save();
@@ -114,8 +117,8 @@ class EventoController extends Controller
         $eventos = Evento::findOrFail($id);
         $datos = $request->all();
         $eventos->update($datos);
-
-        return redirect()->route('eventos.index')->with('mensaje','Datos actualizados correctamente');
+        
+        return redirect('/eventos')->route('eventos.index')->with('mensaje','Datos actualizados correctamente');
     }
 
     /**
