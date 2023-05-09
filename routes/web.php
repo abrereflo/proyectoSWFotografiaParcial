@@ -7,6 +7,7 @@ use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\DetalleOrdenController;
 use App\Http\Controllers\FotoController;
 use App\Http\Controllers\FotoPerfilClienteController;
+use App\Models\Foto;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +48,7 @@ Route::resource('albums',AlbumController::class);
 Route::post('albums/verEvento',[AlbumController::class,"verEventoFoto"])->name("verEventoFoto");
 Route::resource('fotos',FotoController::class);
 Route::resource('fotoPerfiles',FotoPerfilClienteController::class);
+Route::get('/fotosPerfiles/cliente',[FotoPerfilClienteController::class,'fotosClienteReconocidas'])->name('fotosClienteReconocidas');
 
 Route::get('fotoPerfiles/pf',[FotoPerfilClienteController::class, 'vistaSubirFotoCliente'])->name('vistaSubirFotoCliente');
 Route::post('fotoPerfiles/subirFotoCliente',[FotoPerfilClienteController::class, 'subirImagen'])->name('fotoPerfiles.subirFotoCliente');

@@ -17,8 +17,9 @@ class FotoPerfilClienteController extends Controller
      */
     public function index()
     {
-        $cliente = Cliente::all();
-        return view('fotoPerfiles.index', compact('cliente'));
+        $fotoPerfilCliente = FotoPerfil::where('cliente_id',Auth::user()->id)
+                                        ->orderBy('id','desc')->get();
+        return view('fotoPerfiles.index', compact('fotoPerfilCliente'));
     }
 
     /**
@@ -69,9 +70,9 @@ class FotoPerfilClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+
     }
 
     /**
@@ -110,7 +111,7 @@ class FotoPerfilClienteController extends Controller
     }
 
     public function subirImagen(Request $request)
-    {   
+    {
         $request->validate([
             'imagen' => 'required|image'
         ]);
@@ -136,7 +137,13 @@ class FotoPerfilClienteController extends Controller
         return redirect()->route('fotoPerfiles.subirFotoCliente');
     }
     public function vistaSubirFotoCliente(){
-        dd('hola mundo');
+
         //return view('fotoPerfiles.subirFotoCliente');
+    }
+
+    //TODO Método para visualizar las fotos en donde aparece el cliente
+
+    public function fotosClienteReconocidas(){
+        return view('fotoPerfiles.show');
     }
 }

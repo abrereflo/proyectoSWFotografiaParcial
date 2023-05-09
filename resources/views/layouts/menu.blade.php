@@ -2,9 +2,9 @@
 @role('organizador')
     <li class="menu-header ">Dashboard</li>
     <li class="dropdown {{ ''  ? ' active' : '' }}">
-      <a href="{{ route('home') }}" ><i class="fas fa-home titulo"></i><span class="titulo">Dashboard</span></a> 
+      <a href="{{ route('home') }}" ><i class="fas fa-home titulo"></i><span class="titulo">Dashboard</span></a>
     </li>
-    
+
     <li class="menu-header">Administracion</li>
     <li class="dropdown {{  'users' ? ' ' : '' }}">
       <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-users titulo"></i> <span class="titulo">Usuarios</span></a>
@@ -21,7 +21,7 @@
     <li class="menu-header">Modulos</li>
 
     @endrole
-    
+
 @role('fotografo')
 <li class="menu-header ">Dashboard</li>
     <li class="dropdown {{ ''  ? ' active' : '' }}">
@@ -50,7 +50,7 @@
       </ul>
     </li>
     @endrole
-    
+
     @role('cliente')
 
     <li class="dropdown  {{  'contratos' ||  'personales' ||  'contratos' ||  'departamentos' ||  'bonos' ||  'descuentos' ||  'horarios' ||  'sanciones' ? ' ' : '' }}">
@@ -59,6 +59,7 @@
 
         <li class="nav-item{{  'contratos' ? ' ' : '' }}"><a class="nav-link "href="{{route('fotoPerfiles.index')}}" >Subir fotos</a></li>
         <li class="nav-item{{  'contratos' ? ' ' : '' }}"><a class="nav-link "href="{{route('fotoPerfiles.index')}}" >Ver fotos</a></li>
+        <li class="nav-item{{  'contratos' ? ' ' : '' }}"><a class="nav-link "href="{{route('fotosClienteReconocidas')}}" >Fotos en donde apareces </a></li>
       </ul>
     </li>
     @endrole
