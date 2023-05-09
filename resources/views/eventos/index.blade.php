@@ -13,7 +13,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        {{--   <a class="btn btn-outline-info" href="{{route('eventos.index')}}">Nuevo Evento</a><br><br> --}}
+                        {{-- <a class="btn btn-outline-info" href="{{route('eventos.index')}}">Nuevo Evento</a><br><br> --}}
                         <div class="table-responsive">
 
                             <table class="table table-striped mt-15 " id="table">
@@ -27,16 +27,13 @@
                                     <th class="text-center" style="color: #fff;">Hora</th>
                                     <th class="text-center" style="color: #fff;">Precio</th>
                                     <th class="text-center" style="color: #fff;">Estado</th>
-                                    <th class="text-center" style="color: #fff;">Código QR</th>
+                                   <!-- <th class="text-center" style="color: #fff;">Código QR</th> -->
                                     <th class="text-center" style="color: #fff;"></th>
 
                                 </thead>
                                 <tbody>
                                     @foreach ($eventos as $evento)
-                                        <tr>
-                                            {{--  <td  class="text-center">
-                                        <a href="{{route('productos.show', $producto->id)}}">{{$producto->codigo}} </a>
-                                        </td> --}}
+                                        
                                             <td class="text-center">{{ $evento->nombre }}</td>
                                             <td class="text-center">{{ $evento->descripcion }}</td>
                                             <td class="text-center">{{ $evento->ubicacion }}</td>
@@ -44,7 +41,6 @@
                                             <td class="text-center">{{ $evento->fecha }}</td>
                                             <td class="text-center">{{ $evento->hora }}</td>
                                             <td class="text-center">{{ $evento->precio }}</td>
-
                                             <td class="text-center">
                                                 @if ($evento->estado == 'b')
                                                     <div class="badge badge-pill badge-success">De Baja</div>
@@ -52,13 +48,13 @@
                                                     <div class="badge badge-pill badge-danger">Activo</div>
                                                 @endif
                                             </td>
-
+                                           <!-- {{--Codigo QR--}}
                                             <td>
                                                 <div class="img-container">
-                                                    <img style="height: 170px; width: 147px;"
-                                                        src="{{ asset('storage/codesqr/'.$evento->code_qr) }}" alt="">
+                                                    <img style="height: 170px; width: 400px;"
+                                                        src="{{ asset($evento->code_qr) }}" class="img-fluid img-thumbnail">
                                                 </div>
-                                            </td>
+                                            </td> -->
 
                                             <td class="td-actions text-right">
                                                         {{--Editar--}}
@@ -67,6 +63,7 @@
                                                         </a>
                                                         {{--Eliminar--}}
                                                         <form action="{{ route('eventos.destroy',$evento->id) }}"
+                                                        
                                                               method="POST" style="display: inline-block;"
                                                               onsubmit="return confirm('¿Está seguro?')">
                                                             @csrf

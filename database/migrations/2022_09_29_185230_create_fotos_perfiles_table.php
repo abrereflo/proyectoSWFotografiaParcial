@@ -17,7 +17,7 @@ class CreateFotosPerfilesTable extends Migration
             $table->id();
             $table->string('imagen');
             $table->unsignedBigInteger('cliente_id');
-            $table->foreign('cliente_id')->on('clientes')->references('id');
+            $table->foreign('cliente_id')->on('clientes')->references('id')->onDelete('cascade');
             $table->timestamps();
         });
     }

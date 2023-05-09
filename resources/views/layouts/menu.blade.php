@@ -35,7 +35,6 @@
         <li class="nav-item{{  'departamentos' ? ' ' : '' }}"><a class="nav-link"href="{{route('albums.create')}}" >Subir Foto</a></li>
         <li class="nav-item{{  'contratos' ? ' ' : '' }}"><a class="nav-link "href="{{route('albums.index')}}" >Ver Albums</a></li>
 
-
       </ul>
     </li>
     @endrole
@@ -47,12 +46,20 @@
 
         <li class="nav-item{{  'departamentos' ? ' ' : '' }}"><a class="nav-link"href="{{route('eventos.create')}}" >Crear Evento</a></li>
         <li class="nav-item{{  'departamentos' ? ' ' : '' }}"><a class="nav-link"href="{{route('eventos.index')}}" >Ver Evento</a></li>
-       <!-- <li class="nav-item{{  'departamentos' ? ' ' : '' }}"><a class="nav-link"href="{{route('eventos.generarCatalogo')}}" >Ver Catalogos</a></li> -->
 
       </ul>
     </li>
     @endrole
-    <style>
+    
+    @role('cliente')
 
+    <li class="dropdown  {{  'contratos' ||  'personales' ||  'contratos' ||  'departamentos' ||  'bonos' ||  'descuentos' ||  'horarios' ||  'sanciones' ? ' ' : '' }}">
+      <a href="#" class="nav-link has-dropdown"><i class="fas fa-book"></i> <span>Cliente</span></a>
+      <ul class="dropdown-menu">
 
-    </style>
+        <li class="nav-item{{  'contratos' ? ' ' : '' }}"><a class="nav-link "href="{{route('fotoPerfiles.index')}}" >Subir fotos</a></li>
+        <li class="nav-item{{  'contratos' ? ' ' : '' }}"><a class="nav-link "href="{{route('fotoPerfiles.index')}}" >Ver fotos</a></li>
+      </ul>
+    </li>
+    @endrole
+

@@ -18,17 +18,10 @@
                     </div>
                 </div>
 
-
-
-
-
         @empty
             <h3>No hay Fotos disponible</h3>
         @endforelse
     </div>
-
-
-
 
     </section>
 @endsection

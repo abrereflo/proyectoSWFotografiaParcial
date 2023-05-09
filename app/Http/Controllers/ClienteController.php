@@ -36,7 +36,7 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**
@@ -84,4 +84,6 @@ class ClienteController extends Controller
         Cliente::find($id)->delete();
         return redirect()->route('clientes.index');
     }
+
+    
 }

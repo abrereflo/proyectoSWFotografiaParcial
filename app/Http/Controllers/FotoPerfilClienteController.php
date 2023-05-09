@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Foto;
-use App\Models\Evento;
-use App\Models\Album;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;  ///paquete que sirve para reducir el tamaño de la foto
+use App\Models\FotoPerfil;
+use App\Models\Cliente;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
-class FotoController extends Controller
+class FotoPerfilClienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +17,8 @@ class FotoController extends Controller
      */
     public function index()
     {
-       
+        $cliente = Cliente::all();
+        return view('fotoPerfiles.index', compact('cliente'));
     }
 
     /**
@@ -43,27 +42,25 @@ class FotoController extends Controller
         $request->validate([
             'imagen' => 'required|image'
         ]);
-        $foto  = new Foto();
+        $foto  = new FotoPerfil();
 
         if ($request->hasFile('imagen')) {
             $file = $request->file('imagen');
             $filename = time() . '-' . $file->getClientOriginalName();
             $destinationPath = storage_path() . '\app\public\imagenes/' . $filename;
-           
+
             Image::make($request->file('imagen'))
                 ->resize(1200, null, function ($constraint) {
                     $constraint->aspectRatio();
-                    //$constraint->upsize();
-                }) 
-            ->save($destinationPath);
+                    $constraint->upsize();
+                })
+                ->save($destinationPath);
             $foto->imagen = 'storage/imagenes/' . $filename;
         };
-        $foto->estado = $request->estado;
-        $foto->fotografo_id = Auth::user()->id;
-        $foto->evento_id = $request->evento_id;
+        $foto->cliente_id = Auth::user()->id;
         $foto->save();
 
-        return redirect()->route('albums.index');
+        return redirect()->route('fotoPerfiles.index');
     }
 
     /**
@@ -83,9 +80,10 @@ class FotoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+
+        return view('fotoPerfiles.edit');
     }
 
     /**
@@ -111,6 +109,34 @@ class FotoController extends Controller
         //
     }
 
+    public function subirImagen(Request $request)
+    {   
+        $request->validate([
+            'imagen' => 'required|image'
+        ]);
 
+        $foto  = new FotoPerfil();
 
+        if ($request->hasFile('imagen')) {
+            $file = $request->file('imagen');
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $destinationPath = storage_path() . '\app\public\fotosClientes/' . $filename;
+
+            Image::make($request->file('imagen'))
+                ->resize(1200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->save($destinationPath);
+            $foto->imagen = 'storage/fotosClientes/' . $filename;
+        };
+        $foto->cliente_id = Auth::user()->id;
+        $foto->save();
+
+        return redirect()->route('fotoPerfiles.subirFotoCliente');
+    }
+    public function vistaSubirFotoCliente(){
+        dd('hola mundo');
+        //return view('fotoPerfiles.subirFotoCliente');
+    }
 }

@@ -63,15 +63,15 @@ class EventoController extends Controller
 
         $imagen = Str::slug($evento->nombre).'.png';
         $filename = storage_path(). '\app\public\codesqr/' .$imagen;
-        //$name = substr($filename, 43);
         $name = substr($filename, 63);
         QrCode::generate($evento, $filename);
         QrCode::size(500)
         ->backgroundColor(255,255,204)
-        ->generate($evento, $filename);
+        ->format('png')
+        ->generate($evento, public_path('codesqr/qrcode.png'));
         
-        $url = Storage::url($name);
-        $evento->code_qr = $url;
+        //$url = Storage::url($name);
+        $evento->code_qr = $filename;
         $evento->save();
 
         /*Album::create([
@@ -101,7 +101,7 @@ class EventoController extends Controller
      */
     public function edit($id)
     {
-        $eventos = Evento::findOrFail($id);
+        $eventos = Evento::find($id);
         return view('eventos.edit',compact('eventos'));
     }
 
@@ -118,7 +118,7 @@ class EventoController extends Controller
         $datos = $request->all();
         $eventos->update($datos);
         
-        return redirect('/eventos')->route('eventos.index')->with('mensaje','Datos actualizados correctamente');
+        return redirect()->route('eventos.index')->with('mensaje','Datos actualizados correctamente');
     }
 
     /**

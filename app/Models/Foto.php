@@ -12,7 +12,7 @@ class Foto extends Model
 
     protected $table = 'fotos';
     protected $fillable = [
-        'imagen',
+        'imagen'
     ];
 
     /*public function Album() {
@@ -23,9 +23,6 @@ class Foto extends Model
         return $this->belongsTo(Fotografo::class,'fotografo_id');
     }*/ /////////////////
 
-    /*public function detalles_compra(){
-        return $this->belongsTo(DetalleOrdenCompra::class,'foto_id');
-    }*/
      //TODO: relacion de 1 evento tiene muchas fotos
     public function evento(){
         return $this->hasOne(Evento::class);

@@ -27,8 +27,11 @@ class RolSeeder extends Seeder
         $permiso5 = Permission::create(['name'=>'album.create']);
         $permiso6 = Permission::create(['name'=>'album.store']);
         $permiso7 = Permission::create(['name'=>'home2.index']);
+        $permiso8 = Permission::create(['name'=>'fotoPerfiles.index']);
+        $permiso9 = Permission::create(['name'=>'fotoPerfiles.subirFotoCliente']);
 
         $rol1->syncPermissions($permiso4, $permiso5, $permiso6,$permiso7);
+        $rol2->syncPermissions($permiso8,$permiso9);
         $rol3->syncPermissions($permiso1, $permiso2, $permiso3);
 
     }

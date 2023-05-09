@@ -10,10 +10,10 @@ class FotoPerfil extends Model
     use HasFactory;
     protected $table = 'fotos_perfiles';
 
-    protected $fillable = ['imagen','cliente_id'];
+    protected $fillable = ['id','imagen','cliente_id'];
 
     public function cliente(){
-        return $this->belongsTo(Cliente::class);
+        return $this->hasOne(Cliente::class);
     }
 
 

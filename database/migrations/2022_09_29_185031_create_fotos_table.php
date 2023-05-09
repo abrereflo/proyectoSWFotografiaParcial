@@ -21,8 +21,6 @@ class CreateFotosTable extends Migration
             $table->unsignedBigInteger('fotografo_id');
             $table->foreign('fotografo_id')->on('fotografos')->references('id');
             $table->foreign('evento_id')->on('eventos')->references('id')->onDelete('cascade');
-            // $table->unsignedBigInteger('album_id');
-            // $table->foreign('album_id')->on('albums')->references('id')->onDelete('cascade');
             $table->timestamps();
         });
     }
