@@ -1,10 +1,10 @@
-@extends('layouts.main',['activePage'=>'eventos','titlePage'=>'Editar Evento'])
+@extends('layouts.app',['activePage'=>'eventos','titlePage'=>'Editar Evento'])
 @section('content')
     <div class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="{{ route('eventos.update', ['id'=>$eventos->id]) }}" method="POST" class="form-horizontal">
+                    <form action="{{ route('eventos.update',$eventos->id) }}" method="POST" class="form-horizontal">
                         @csrf
                         @method('PUT')
                         <div class="card">
@@ -63,7 +63,7 @@
                                 <div class="row">
                                     <label for="fecha" class="col-sm-2 col-form-label"> Fecha </label>
                                     <div class="col-sm-7">
-                                        <input type="text"
+                                        <input type="date"
                                                class="form-control"
                                                name="fecha"
                                                value="{{ old('fecha',$eventos->fecha) }}">
@@ -78,7 +78,7 @@
                                 <div class="row">
                                     <label for="hora" class="col-sm-2 col-form-label"> Hora </label>
                                     <div class="col-sm-7">
-                                        <input type="text"
+                                        <input type="time"
                                                class="form-control"
                                                name="Hora"
                                                value="{{ old('hora',$eventos->hora) }}">

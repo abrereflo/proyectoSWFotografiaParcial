@@ -162,7 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        
+
         /*
          * Package Service Providers...
          */
@@ -179,7 +179,7 @@ return [
         App\Providers\JetstreamServiceProvider::class,
 
         Spatie\Permission\PermissionServiceProvider::class, //Spatie
-        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class, /* Paquete de código QR simple*/
+        // SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class, /* Paquete de código QR simple*/
     ],
 
     /*
@@ -235,7 +235,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Qr' => SimpleSoftwareIO\QrCode\Facades\QrCode::class, /* Paquete de código QR simple*/
+        // 'Qr' => SimpleSoftwareIO\QrCode\Facades\QrCode::class, /* Paquete de código QR simple*/
 
     ],
 

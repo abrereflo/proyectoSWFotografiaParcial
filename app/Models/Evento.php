@@ -37,4 +37,6 @@ class Evento extends Model
     public function foto(){
         return $this->belongsTo(Foto::class);
     }
+
+
 }
