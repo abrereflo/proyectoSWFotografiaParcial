@@ -53,6 +53,8 @@ Route::get('/fotosPerfiles/cliente',[FotoPerfilClienteController::class,'fotosCl
 Route::get('fotoPerfiles/pf',[FotoPerfilClienteController::class, 'vistaSubirFotoCliente'])->name('vistaSubirFotoCliente');
 Route::post('fotoPerfiles/subirFotoCliente',[FotoPerfilClienteController::class, 'subirImagen'])->name('fotoPerfiles.subirFotoCliente');
 
+ 
+
 
 //Route::resource('detalleOrden',DetalleOrdenController::class);
 //Route::get('eventos/generarCatalogo',[EventoController::class, 'generarCatalogo'])->name('eventos.generarCatalogo');

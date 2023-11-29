@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\AwsRekognition;
 use Illuminate\Support\Facades\Auth;
+
 use Aws\Rekognition\RekognitionClient;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;  ///paquete que sirve para reducir el tamaño de la foto
@@ -36,6 +37,8 @@ class FotoController extends Controller
         //
     }
 
+
+    //////////////////////////////////////////////ESTE ES EL METODO QUE SI SIRVE (HACER DD EN CASO DE QUE SE PONGA LOCO)//////////////////////////////////////////
     /**
      * Store a newly created resource in storage.
      *
@@ -71,13 +74,13 @@ class FotoController extends Controller
 
 
           /*CONEXION CON AWS REKOGNITION  */
+        //   dd($request->all());
           if ($request->hasFile('imagen')) {
-
             try {
                 $foto  = new Foto();
                 $file = $request->file('imagen');
                 $filename = time() . '-' . $file->getClientOriginalName();
-                $destinationPath = storage_path() . '\app\public\imagenes/' . $filename;
+                $destinationPath ="storage/imagenes/"  . $filename;
 
                 Image::make($request->file('imagen'))
                     ->resize(1200, null, function ($constraint) {
@@ -92,12 +95,12 @@ class FotoController extends Controller
                 $foto->save();
 
                 // REKOGNITION
-
+              //  dd();
                 $client = new RekognitionClient([
                     'region' => 'us-east-1',
                     'version' => 'latest'
                 ]);
-
+               // dd($client);
                 /* OBTENIENDO LA IMG */
                 $image = fopen($request->file('imagen')->getPathName(), 'r');
                 $bytes = fread($image, $request->file('imagen')->getSize());
@@ -112,10 +115,10 @@ class FotoController extends Controller
                     'MaxFaces' => 1,
                     'QualityFilter' => 'AUTO',
                 ]);
-
+               // dd( $result);
                 $result = $result['FaceMatches'];
                 $result = array_values($result);
-                // dd($result);
+              
                 //  dd($fotoEvento->id);
                 foreach ($result as $res) {
                     $data = $res['Face'];
@@ -145,7 +148,7 @@ class FotoController extends Controller
             }
         }
 
-        return redirect()->route('albums.index');
+         return redirect()->route('albums.index');
     }
 
     /**

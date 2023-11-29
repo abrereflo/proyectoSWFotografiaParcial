@@ -34,8 +34,7 @@
                                             </span>
                                         @endif
                                     </div>
-                           <div class="row">
-                               {{-- <form action="{{ route('fotos.store') }}" method="POST" class="dropzone" id="my-awesome-dropzone"> --}}
+                                    <div class="row">
                                     <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exampleFormControlInput1">Imagen<span class="required">*</span></label>
@@ -49,7 +48,7 @@
                                        </br>
                                     </div>
                                 </div>
-                                {{-- </form> --}}
+                               
 
                                 <div class="col-md-6">
                                     <div class="form-group">
